@@ -23,13 +23,21 @@ let addSubject = async (req, res) => {
     }
 }
 
-let getAllSubjects = (req, res) => {
+let getAllSubjects = (req, res) => async (req, res) => {
     let sql = "SELECT * FROM subject"
-    const [ result ] = db.query(sql)
-    
+    const [ result ] = await  db.query(sql)
+    console.log(db.query(sql))
      res.json({id: result}).status(200);
 
-
-
 }
-export {addSubject}
+
+
+let getSubjectById = async (req, res) => {
+  const id = parseInt(req.params.id);
+  const sql = "SELECT * FROM subject WHERE subject_id =  ?";
+  const [result] = await db.query(sql, [id]); // <-- wrap id in array
+
+  res.status(200).json(result); // <-- status first, then json
+}
+
+export {addSubject,getAllSubjects, getSubjectById }
