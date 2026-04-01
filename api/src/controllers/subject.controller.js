@@ -40,4 +40,24 @@ let getSubjectById = async (req, res) => {
   res.status(200).json(result); // <-- status first, then json
 }
 
-export {addSubject,getAllSubjects, getSubjectById }
+let deleteSubjectById = async (req, res) => {
+  const id = parseInt(req.params.id);
+  const sql = "DELETE FROM subject WHERE subject_id =  ?";
+  const [result] = await db.query(sql, [id]); // <-- wrap id in array
+
+  res.status(200).json(result); 
+}
+
+let updateSubjectById = async (req, res) => {
+  const { subject_name, credit } = req.body;
+  const id = parseInt(req.params.id);
+
+  const [result] = await db.query(
+    "UPDATE subject SET subject_name = ?, credit = ? WHERE subject_id = ?",
+    [subject_name, credit, id]
+  );
+
+  res.status(200).json(result);
+};
+
+export {addSubject,getAllSubjects, getSubjectById, deleteSubjectById, updateSubjectById}

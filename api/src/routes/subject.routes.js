@@ -1,5 +1,5 @@
 import express from "express";
-import { addSubject, getAllSubjects, getSubjectById } from "../controllers/subject.controller.js";
+import { addSubject, getAllSubjects, getSubjectById, deleteSubjectById, updateSubjectById } from "../controllers/subject.controller.js";
 
 // Create router instance
 const router = express.Router();
@@ -8,6 +8,8 @@ const router = express.Router();
 router.post("/subject", addSubject);
 router.get("/subjects", getAllSubjects )
 router.get("/subject/:id",getSubjectById );
+router.delete("/subject/:id",deleteSubjectById );
+router.put("/subject/:id",updateSubjectById );
 
 // Export router
 export default router;
