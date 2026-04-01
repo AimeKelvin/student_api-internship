@@ -1,13 +1,15 @@
-import express from "express"
+import express from "express";
+import db from "./config/db.js";
+import subjectRoutes from "./routes/subject.routes.js"
 
-let app = express()
+const app = express();
+const PORT = 1998;
 
-let PORT = 1998
 
-app.listen(PORT, ()=>{
-    console.log(`server is running on port http://localhost:${PORT}`)
-})
+app.use(express.json());
 
-app.get("/", (req,res)=>{
-    res.send("Hello this is the root of our project.")
-})
+
+app.post("/subject", subjectRoutes);
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
