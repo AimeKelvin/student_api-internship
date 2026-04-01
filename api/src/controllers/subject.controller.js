@@ -5,11 +5,11 @@ let addSubject = async (req, res) => {
     
     try {
      
-        const { subject_name, credit } = req.body;
+        const { subject, credit } = req.body;
 
         const sql = "INSERT INTO subject (subject_name, credit) VALUES (?, ?)";
 
-        const [result] = await db.query(sql, [subject_name, credit]);
+        const [result] = await db.query(sql, [subject, credit]);
 
         res.json({
             message: "Subject added successfully",
@@ -23,4 +23,13 @@ let addSubject = async (req, res) => {
     }
 }
 
+let getAllSubjects = (req, res) => {
+    let sql = "SELECT * FROM subject"
+    const [ result ] = db.query(sql)
+    
+     res.json({id: result}).status(200);
+
+
+
+}
 export {addSubject}
